@@ -1,0 +1,6 @@
+.box:hover{
+    border: 3px solid tomato;
+}
+.hide{
+    display: none;
+}
