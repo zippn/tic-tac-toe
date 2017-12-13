@@ -4,3 +4,21 @@
 .hide{
     display: none;
 }
+#finish{
+    background-color: tomato;
+}
+.message{
+    background-repeat: no-repeat ;
+    background-size: 5% ;
+    background-position: center center;
+}
+.message p{
+    color: black;
+
+}
+.player1-winner{
+    background-image: url("../img/o.svg");
+}
+.player2-winner{
+    background-image: url("../img/x.svg");
+}
