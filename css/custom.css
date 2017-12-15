@@ -12,8 +12,7 @@
     background-size: 5% ;
     background-position: center center;
 }
-.message p{
-    color: black;
+#finish .message p{
 
 }
 .player1-winner{

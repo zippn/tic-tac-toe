@@ -8,6 +8,7 @@
 
 
     var activePlayer;
+    //board logic
     var turnCompleted = 0;
     var gameOver = false;
     var boardArray = [0,1,2,3,4,5,6,7,8];//['top-left','top-mid','top-right', 'mid-left','mid-mid','mid-right','bottom-left','bottom-mid','bottom-right'];
@@ -22,12 +23,13 @@
 
                 }
             activePlayer.selector.addClass('active');
-                console.log(board);
+              //  console.log(board);
 
         };
 
 
     board.addClass('hide');
+    $('.message').css('color','black');
     finishedGame.hide();
 
     //Start game button
@@ -49,33 +51,33 @@
 
         //index of box
         var index = $('.box').index(this);
-        console.log(index);
 
         if(!$(this).hasClass('box-filled-1')&&!$(this).hasClass('box-filled-2')){
             if(activePlayer.selector.attr('id')==='player2'){
-                console.log('p2');
 
                 $(this).addClass('box-filled-2');
                 activePlayer.moves.push(boardArray[index]);
 
             }else {
-                console.log('p1');
                 $(this).addClass('box-filled-1');
                 activePlayer.moves.push(boardArray[index]);
 
             }
             turnCompleted++;
+            //start checking moves
             if(turnCompleted>=5){
                 checkForWinner();
             }
+            //no more moves
             if(turnCompleted===9){
                 gameOver = true;
             }
+            //gameover
             if(gameOver){
                 board.hide();
                 finishedGame.show();
                 if(activePlayer.winner) {
-                    $('.message').text('GAME OVER! WINNER ');
+                    $('.message').text('WINNER!');
                     if(activePlayer.id===1){
                         $('.message').addClass('player1-winner');
                     }else {
@@ -91,15 +93,11 @@
 
             }
 
-            console.log(player1.moves);
-            console.log(player2.moves);
-
         }
     });
-    
+    //Check players moves against winning combos
     function checkForWinner() {
-        var playerMove;
-        var moveArray = [];
+
             activePlayer.moves.sort();
             checkPlayerMoves(activePlayer);
 
@@ -109,27 +107,29 @@
         var matchCount = 0;
         var startIndex = 0;
         do{
-            console.log('start '+startIndex);
+          //  console.log('start '+startIndex);
             playerMoves.forEach(function (move) {
-                console.log('move '+move);
+               // check a player's moves in a winning condition
                 if (winningMoves[startIndex].indexOf(move) > -1) {
                     matchCount++;
                 }
             });
-            console.log('match '+matchCount);
+          //  match 3 to win
             if(matchCount===3){break;}
+          //increment to next winning set
             matchCount = 0;
             startIndex++;
 
         }while(startIndex<8)
 
-        if(matchCount===3) {
+        if(matchCount===3) {//3 matched
             player.winner = true;
             gameOver = true;
         }
 
 
     }
+    //reset game
     function resetGame() {
         turnCompleted = 0;
         player1.winner = false;
