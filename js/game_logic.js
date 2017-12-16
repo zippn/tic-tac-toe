@@ -105,22 +105,15 @@
     function checkPlayerMoves(player) {
         var playerMoves = player.moves;
         var matchCount = 0;
-        var startIndex = 0;
-        do{
-          //  console.log('start '+startIndex);
-            playerMoves.forEach(function (move) {
-               // check a player's moves in a winning condition
-                if (winningMoves[startIndex].indexOf(move) > -1) {
-                    matchCount++;
-                }
-            });
-          //  match 3 to win
-            if(matchCount===3){break;}
-          //increment to next winning set
-            matchCount = 0;
-            startIndex++;
 
-        }while(startIndex<8)
+        var matchLine = winningMoves.filter(function (move) {
+           return move.indexOf(playerMoves[0])>-1&&move.indexOf(playerMoves[1])>-1&&move.indexOf(playerMoves[2])>-1;
+        });
+        console.log(matchLine);
+        if(matchLine.length>0){
+            matchCount = matchLine[0].length;
+
+        }
 
         if(matchCount===3) {//3 matched
             player.winner = true;
